@@ -121,6 +121,13 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
   </div></div>
   <div class="controls"><button class="btn-p" onclick="checkQuiz(1)">Sjekk svar →</button></div>
   <div class="fb" id="fb1q"></div>
+
+  <div class="stagebox" id="code1">
+    <h3>Steg 2 · Skriv inn tallkoden</h3>
+    <p>Tallkoden er svaralternativene dine i riktig rekkefølge. Skriv dem inn for å låse opp gåtene:</p>
+    <div class="row"><input type="text" id="codeInput1" placeholder="_ _ _ _ _" maxlength="5"><button class="btn-s" onclick="checkCode(1)">Lås opp</button></div>
+    <div class="fb" id="fb1c"></div>
+  </div>
   <div class="stagebox" id="riddle1">
     <h3>Steg 2 · Finn kodeordet</h3>
     <p>Løs alle tre. Ta <strong>første bokstav</strong> i hvert svar og sett dem sammen.</p>
@@ -172,6 +179,13 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
   </div></div>
   <div class="controls"><button class="btn-p" onclick="checkQuiz(2)">Sjekk svar →</button></div>
   <div class="fb" id="fb2q"></div>
+
+  <div class="stagebox" id="code2">
+    <h3>Steg 2 · Skriv inn tallkoden</h3>
+    <p>Tallkoden er svaralternativene dine i riktig rekkefølge. Skriv dem inn for å låse opp gåtene:</p>
+    <div class="row"><input type="text" id="codeInput2" placeholder="_ _ _ _ _" maxlength="5"><button class="btn-s" onclick="checkCode(2)">Lås opp</button></div>
+    <div class="fb" id="fb2c"></div>
+  </div>
   <div class="stagebox" id="riddle2">
     <h3>Steg 2 · Finn kodeordet</h3>
     <div class="riddle-box">
@@ -221,6 +235,13 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
   </div></div>
   <div class="controls"><button class="btn-p" onclick="checkQuiz(3)">Sjekk svar →</button></div>
   <div class="fb" id="fb3q"></div>
+
+  <div class="stagebox" id="code3">
+    <h3>Steg 2 · Skriv inn tallkoden</h3>
+    <p>Tallkoden er svaralternativene dine i riktig rekkefølge. Skriv dem inn for å låse opp gåtene:</p>
+    <div class="row"><input type="text" id="codeInput3" placeholder="_ _ _ _ _" maxlength="5"><button class="btn-s" onclick="checkCode(3)">Lås opp</button></div>
+    <div class="fb" id="fb3c"></div>
+  </div>
   <div class="stagebox" id="riddle3">
     <h3>Steg 2 · Finn kodeordet</h3>
     <div class="riddle-box">
@@ -270,6 +291,13 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
   </div></div>
   <div class="controls"><button class="btn-p" onclick="checkQuiz(4)">Sjekk svar →</button></div>
   <div class="fb" id="fb4q"></div>
+
+  <div class="stagebox" id="code4">
+    <h3>Steg 2 · Skriv inn tallkoden</h3>
+    <p>Tallkoden er svaralternativene dine i riktig rekkefølge. Skriv dem inn for å låse opp gåtene:</p>
+    <div class="row"><input type="text" id="codeInput4" placeholder="_ _ _ _ _" maxlength="5"><button class="btn-s" onclick="checkCode(4)">Lås opp</button></div>
+    <div class="fb" id="fb4c"></div>
+  </div>
   <div class="stagebox" id="riddle4">
     <h3>Steg 2 · Finn kodeordet</h3>
     <div class="riddle-box">
@@ -348,8 +376,8 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
 const cfg = {
   1: { qs:["q1","q2","q3","q4","q5"], code:"23122", codeW:"elg", ans:"nøytron" },
-  2: { qs:["q6","q7","q8","q9","q10"], code:"22113", codeW:"bli", ans:"salt" },
-  3: { qs:["q11","q12","q13","q14","q15"], code:"11212", codeW:"kom", ans:"membran" },
+  2: { qs:["q6","q7","q8","q9","q10"], code:"22311", codeW:"bli", ans:"salt" },
+  3: { qs:["q11","q12","q13","q14","q15"], code:"11222", codeW:"kom", ans:"membran" },
   4: { qs:["q16","q17","q18","q19","q20"], code:"13121", codeW:"los", ans:"molekyl" }
 };
 
@@ -419,10 +447,22 @@ function checkQuiz(r) {
   const c = cfg[r], answers = c.qs.map(sel);
   if(answers.some(a => !a)) { setFb("fb"+r+"q","Svar på alle fem spørsmål først.",false); return; }
   if(answers.join("") === c.code) {
-    setFb("fb"+r+"q","Riktig! Gåtene låses opp under.",true);
-    show("riddle"+r); goTo("riddle"+r);
+    setFb("fb"+r+"q","Riktig! Skriv inn tallkoden under for å låse opp gåtene.",true);
+    show("code"+r); goTo("code"+r);
   } else {
     setFb("fb"+r+"q","Ikke riktig – sjekk svarene og prøv igjen.",false);
+  }
+}
+
+
+// ─── CODE ─────────────────────────────────────────────────────────────────────
+function checkCode(r) {
+  const val = (document.getElementById("codeInput"+r).value||"").trim();
+  if(val === cfg[r].code) {
+    setFb("fb"+r+"c","Kode godkjent – gåtene åpner seg!",true);
+    show("riddle"+r); goTo("riddle"+r);
+  } else {
+    setFb("fb"+r+"c","Feil kode – prøv igjen.",false);
   }
 }
 
