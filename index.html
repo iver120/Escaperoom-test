@@ -24,7 +24,7 @@ p{margin:0 0 12px}
 .badge{display:inline-block;padding:7px 12px;border-radius:999px;background:#e8f4ee;color:var(--green2);font-weight:700;margin-bottom:10px;font-size:14px}
 .story{margin-top:12px;padding:14px;border-radius:14px;background:var(--soft);border:1px solid var(--line)}
 .muted{color:var(--muted)}
-.progress{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.progress{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px}
 .step{padding:12px;border-radius:14px;border:1px solid var(--line);background:#fff;min-height:82px}
 .step strong{display:block;text-transform:uppercase;letter-spacing:.04em;font-size:12px;color:var(--green);margin-bottom:4px}
 .step.locked{opacity:.5}.step.done{background:#eff9f2;border-color:#b5d9bc}
@@ -38,6 +38,7 @@ input[type=radio]{margin-top:3px;transform:scale(1.1);accent-color:var(--green);
 .controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
 button{appearance:none;border:0;border-radius:13px;padding:13px 16px;min-height:48px;font:inherit;font-weight:800;cursor:pointer}
 .btn-p{background:var(--green);color:#fff}.btn-s{background:var(--soft);color:var(--text);border:1px solid var(--line)}
+.btn-r{background:#f5eaea;color:var(--red);border:1px solid #e0c0c0}
 .stagebox{padding:16px;border-radius:14px;border:1px solid var(--line);background:#fff;margin-top:14px;display:none}
 .stagebox.active{display:block}
 .riddle-box{padding:14px 16px;border-radius:14px;background:#f0f8f4;border:1px solid #bcd9c8;margin:12px 0}
@@ -55,7 +56,14 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 .frag{padding:14px 20px;border-radius:14px;background:var(--soft);border:1px solid var(--line);font-weight:900;letter-spacing:.06em;font-size:18px}
 .final-sec{padding:18px;display:none;text-align:center}.final-sec.active{display:block}
 .winner{margin-top:14px;padding:20px;border-radius:16px;background:#eaf8ee;border:1px solid #b5d9bc;font-size:clamp(28px,6vw,44px);font-weight:900;color:var(--green2);letter-spacing:.04em}
-@media(max-width:720px){.progress{grid-template-columns:repeat(2,1fr)}}
+/* Bonus */
+.cipher-grid{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0;font-family:monospace}
+.cipher-cell{width:38px;height:50px;border-radius:10px;background:#f0f8f4;border:1px solid #bcd9c8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.cipher-cell .c-enc{font-size:20px;font-weight:900;color:var(--green2)}
+.cipher-cell .c-num{font-size:10px;color:var(--muted)}
+.shift-hint{padding:12px 14px;border-left:4px solid var(--green);background:#f0f8f4;border-radius:12px;margin:10px 0;font-size:15px}
+@media(max-width:720px){.progress{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.progress{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -67,10 +75,10 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
   <p>Forskningsstasjonen <strong>Aurora 7</strong> er låst ned. For å slippe ut må dere gjennom fire soner.</p>
   <div class="story">
     <p><strong>Slik fungerer det:</strong></p>
-    <p>🔢 <strong>Steg 1:</strong> Svar på fem spørsmål. Riktige svar gir en tallkode.</p>
+    <p>🔢 <strong>Steg 1:</strong> Svar på fem spørsmål. Riktige svar gir en tallkode (svaralternativene i riktig rekkefølge).</p>
     <p>🧩 <strong>Steg 2:</strong> Løs tre gåter. Ta <strong>første bokstav</strong> i hvert svar og sett dem sammen til et trebokstavers kodeord.</p>
     <p>🔤 <strong>Steg 3:</strong> Kodeordet låser opp et anagram. Løs det for å få ordbrikken.</p>
-    <p class="muted">Fire ordbrikker → slutthvelvet → løsningsordet.</p>
+    <p class="muted">Fire ordbrikker → slutthvelvet → løsningsordet. Bonusrunde venter etter Sone 4!</p>
   </div>
 </section>
 
@@ -79,12 +87,13 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
   <div class="step locked" id="step2"><strong>Sone 2</strong>Syrer og baser</div>
   <div class="step locked" id="step3"><strong>Sone 3</strong>Cellen</div>
   <div class="step locked" id="step4"><strong>Sone 4</strong>Natur og hverdagskjemi</div>
+  <div class="step locked" id="step5"><strong>Bonus</strong>Sifferforskyvning</div>
 </section>
 
 <!-- ===== SONE 1 ===== -->
 <section class="panel card active" id="room1">
   <h2>Sone 1 · Grunnstoff og atomer</h2>
-  <div class="help">Steg 1: Svar på alle fem spørsmål for å få tallkoden.</div>
+  <div class="help">Steg 1: Svar på alle fem spørsmål. Koden er svaralternativene i rekkefølge.</div>
   <div class="q"><div class="q-title">1. Hva kjennetegner et grunnstoff?</div><div class="opts">
     <label class="opt"><input type="radio" name="q1" value="1"> Det kan deles i enklere stoffer</label>
     <label class="opt"><input type="radio" name="q1" value="2"> Det består av én type atom</label>
@@ -112,18 +121,12 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
   </div></div>
   <div class="controls"><button class="btn-p" onclick="checkQuiz(1)">Sjekk svar →</button></div>
   <div class="fb" id="fb1q"></div>
-  <div class="stagebox" id="code1">
-    <h3>Steg 2 · Lås opp gåtene</h3>
-    <p>Skriv inn tallkoden for å låse opp de tre gåtene:</p>
-    <div class="row"><input type="text" id="codeInput1" placeholder="_ _ _ _ _"><button class="btn-s" onclick="checkCode(1)">Lås opp</button></div>
-    <div class="fb" id="fb1c"></div>
-  </div>
   <div class="stagebox" id="riddle1">
-    <h3>Gåtene – finn kodeordet</h3>
+    <h3>Steg 2 · Finn kodeordet</h3>
     <p>Løs alle tre. Ta <strong>første bokstav</strong> i hvert svar og sett dem sammen.</p>
     <div class="riddle-box">
       <div class="riddle-row"><div class="r-num">1</div><div class="r-text">Negativ partikkel som kretser rundt atomkjernen</div></div>
-      <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Protoner er positive, elektroner er negative – dette kalles deres...</div></div>
+      <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Protoner er positive, elektroner er negative – dette kalles deres …</div></div>
       <div class="riddle-row"><div class="r-num">3</div><div class="r-text">Stoff som bare består av én type atom</div></div>
     </div>
     <div class="row"><input type="text" id="riddleInput1" maxlength="3" placeholder="3-bokstavers kodeord"><button class="btn-s" onclick="checkRiddle(1)">Sjekk</button></div>
@@ -132,7 +135,7 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
   <div class="stagebox" id="anagram1">
     <h3>Steg 3 · Anagram</h3>
     <p>Bokstavene under skjuler et naturfagord. Løs det for å få ordbrikken.</p>
-    <div class="chips"><div class="chip">N</div><div class="chip">O</div><div class="chip">R</div><div class="chip">Ø</div><div class="chip">Y</div><div class="chip">T</div></div>
+    <div class="chips"><div class="chip">N</div><div class="chip">Ø</div><div class="chip">Y</div><div class="chip">T</div><div class="chip">R</div><div class="chip">O</div><div class="chip">N</div></div>
     <div class="row"><input type="text" id="anagramInput1" placeholder="Riktig ord"><button class="btn-s" onclick="checkAnagram(1)">Bekreft</button></div>
     <div class="fb" id="fb1a"></div>
   </div>
@@ -141,6 +144,7 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 <!-- ===== SONE 2 ===== -->
 <section class="panel card" id="room2">
   <h2>Sone 2 · Syrer og baser</h2>
+  <div class="help">Steg 1: Svar på alle fem spørsmål. Koden er svaralternativene i rekkefølge.</div>
   <div class="q"><div class="q-title">6. Hva kjennetegner en base?</div><div class="opts">
     <label class="opt"><input type="radio" name="q6" value="1"> pH under 7</label>
     <label class="opt"><input type="radio" name="q6" value="2"> pH over 7</label>
@@ -156,27 +160,22 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
     <label class="opt"><input type="radio" name="q8" value="2"> Sukker løses i vann</label>
     <label class="opt"><input type="radio" name="q8" value="3"> Jern ruster</label>
   </div></div>
-  <div class="q"><div class="q-title">9. Hva er hovedoppgaven til cellemembranen?</div><div class="opts">
-    <label class="opt"><input type="radio" name="q9" value="1"> Produsere energi</label>
-    <label class="opt"><input type="radio" name="q9" value="2"> Beskytte og kontrollere hva som slipper inn og ut</label>
-    <label class="opt"><input type="radio" name="q9" value="3"> Lagre DNA</label>
+  <div class="q"><div class="q-title">9. Hva skjer når du blander en syre og en base?</div><div class="opts">
+    <label class="opt"><input type="radio" name="q9" value="1"> De reagerer og kan nøytralisere hverandre</label>
+    <label class="opt"><input type="radio" name="q9" value="2"> Blandingen blir alltid mer surt</label>
+    <label class="opt"><input type="radio" name="q9" value="3"> Ingenting skjer</label>
   </div></div>
-  <div class="q"><div class="q-title">10. Hva finnes i cellekjernen?</div><div class="opts">
-    <label class="opt"><input type="radio" name="q10" value="1"> Oksygen</label>
-    <label class="opt"><input type="radio" name="q10" value="2"> DNA</label>
-    <label class="opt"><input type="radio" name="q10" value="3"> Proteiner</label>
+  <div class="q"><div class="q-title">10. Hva er en indikator?</div><div class="opts">
+    <label class="opt"><input type="radio" name="q10" value="1"> Et stoff som endrer farge etter pH</label>
+    <label class="opt"><input type="radio" name="q10" value="2"> En type syre</label>
+    <label class="opt"><input type="radio" name="q10" value="3"> Et grunnstoff</label>
   </div></div>
   <div class="controls"><button class="btn-p" onclick="checkQuiz(2)">Sjekk svar →</button></div>
   <div class="fb" id="fb2q"></div>
-  <div class="stagebox" id="code2">
-    <h3>Steg 2 · Lås opp gåtene</h3>
-    <div class="row"><input type="text" id="codeInput2" placeholder="_ _ _ _ _"><button class="btn-s" onclick="checkCode(2)">Lås opp</button></div>
-    <div class="fb" id="fb2c"></div>
-  </div>
   <div class="stagebox" id="riddle2">
-    <h3>Gåtene – finn kodeordet</h3>
+    <h3>Steg 2 · Finn kodeordet</h3>
     <div class="riddle-box">
-      <div class="riddle-row"><div class="r-num">1</div><div class="r-text">pH over 7, glatt og sepeaktig, nøytraliserer syre</div></div>
+      <div class="riddle-row"><div class="r-num">1</div><div class="r-text">pH over 7, glatt og såpaktig, nøytraliserer syre</div></div>
       <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Jeg er et fargestoff laget av lav. I syre skifter jeg fra blå til rød. Hva heter jeg?</div></div>
       <div class="riddle-row"><div class="r-num">3</div><div class="r-text">Fellesord for stoffer som brukes til å måle om noe er surt eller basisk</div></div>
     </div>
@@ -194,6 +193,7 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 <!-- ===== SONE 3 ===== -->
 <section class="panel card" id="room3">
   <h2>Sone 3 · Cellen</h2>
+  <div class="help">Steg 1: Svar på alle fem spørsmål. Koden er svaralternativene i rekkefølge.</div>
   <div class="q"><div class="q-title">11. Hva er mitokondrienes funksjon?</div><div class="opts">
     <label class="opt"><input type="radio" name="q11" value="1"> Lage energi til cellen</label>
     <label class="opt"><input type="radio" name="q11" value="2"> Transportere vann</label>
@@ -209,25 +209,20 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
     <label class="opt"><input type="radio" name="q13" value="2"> Fotosyntese</label>
     <label class="opt"><input type="radio" name="q13" value="3"> Fordøyelse</label>
   </div></div>
-  <div class="q"><div class="q-title">14. Hva trenger kroppen for å få energi i cellene?</div><div class="opts">
-    <label class="opt"><input type="radio" name="q14" value="1"> Oksygen og næring</label>
-    <label class="opt"><input type="radio" name="q14" value="2"> Bare vann</label>
-    <label class="opt"><input type="radio" name="q14" value="3"> Bare varme</label>
+  <div class="q"><div class="q-title">14. Hva er hovedoppgaven til cellemembranen?</div><div class="opts">
+    <label class="opt"><input type="radio" name="q14" value="1"> Produsere energi</label>
+    <label class="opt"><input type="radio" name="q14" value="2"> Beskytte og kontrollere hva som slipper inn og ut</label>
+    <label class="opt"><input type="radio" name="q14" value="3"> Lagre DNA</label>
   </div></div>
-  <div class="q"><div class="q-title">15. Hva skjer i celleånding?</div><div class="opts">
-    <label class="opt"><input type="radio" name="q15" value="1"> Energi frigjøres</label>
-    <label class="opt"><input type="radio" name="q15" value="2"> Energi forsvinner</label>
-    <label class="opt"><input type="radio" name="q15" value="3"> Energi lagres uten bruk</label>
+  <div class="q"><div class="q-title">15. Hva finnes i cellekjernen?</div><div class="opts">
+    <label class="opt"><input type="radio" name="q15" value="1"> Oksygen</label>
+    <label class="opt"><input type="radio" name="q15" value="2"> DNA</label>
+    <label class="opt"><input type="radio" name="q15" value="3"> Proteiner</label>
   </div></div>
   <div class="controls"><button class="btn-p" onclick="checkQuiz(3)">Sjekk svar →</button></div>
   <div class="fb" id="fb3q"></div>
-  <div class="stagebox" id="code3">
-    <h3>Steg 2 · Lås opp gåtene</h3>
-    <div class="row"><input type="text" id="codeInput3" placeholder="_ _ _ _ _"><button class="btn-s" onclick="checkCode(3)">Lås opp</button></div>
-    <div class="fb" id="fb3c"></div>
-  </div>
   <div class="stagebox" id="riddle3">
-    <h3>Gåtene – finn kodeordet</h3>
+    <h3>Steg 2 · Finn kodeordet</h3>
     <div class="riddle-box">
       <div class="riddle-row"><div class="r-num">1</div><div class="r-text">Jeg er midtpunktet i cellen og inneholder DNA. Hva heter jeg?</div></div>
       <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Ribosomer, mitokondrier og kloroplaster er eksempler på meg. Hva er jeg?</div></div>
@@ -247,6 +242,7 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 <!-- ===== SONE 4 ===== -->
 <section class="panel card" id="room4">
   <h2>Sone 4 · Natur og hverdagskjemi</h2>
+  <div class="help">Steg 1: Svar på alle fem spørsmål. Koden er svaralternativene i rekkefølge.</div>
   <div class="q"><div class="q-title">16. Hva er et eksempel på kjemi i hverdagen?</div><div class="opts">
     <label class="opt"><input type="radio" name="q16" value="1"> Kroppen bryter ned mat</label>
     <label class="opt"><input type="radio" name="q16" value="2"> Sola lyser</label>
@@ -274,13 +270,8 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
   </div></div>
   <div class="controls"><button class="btn-p" onclick="checkQuiz(4)">Sjekk svar →</button></div>
   <div class="fb" id="fb4q"></div>
-  <div class="stagebox" id="code4">
-    <h3>Steg 2 · Lås opp gåtene</h3>
-    <div class="row"><input type="text" id="codeInput4" placeholder="_ _ _ _ _"><button class="btn-s" onclick="checkCode(4)">Lås opp</button></div>
-    <div class="fb" id="fb4c"></div>
-  </div>
   <div class="stagebox" id="riddle4">
-    <h3>Gåtene – finn kodeordet</h3>
+    <h3>Steg 2 · Finn kodeordet</h3>
     <div class="riddle-box">
       <div class="riddle-row"><div class="r-num">1</div><div class="r-text">Blandingen av gasser vi puster inn</div></div>
       <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Gassen planter produserer i fotosyntesen, og som vi trenger for å leve</div></div>
@@ -301,10 +292,7 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 <section class="card vault" id="vault">
   <h2>Slutthvelvet</h2>
   <p>Dere har samlet fire ordbrikker:</p>
-  <div class="frags">
-    <div class="frag">NØYTRON</div><div class="frag">SALT</div>
-    <div class="frag">MEMBRAN</div><div class="frag">MOLEKYL</div>
-  </div>
+  <div class="frags" id="fragDisplay"></div>
   <div class="riddle-box" style="margin-top:14px">
     <blockquote style="margin:0;border:0;padding:4px;font-style:italic">
       «Atomer har NØYTRONER i kjernen. Syrer og baser danner SALT. Celler er omgitt av en MEMBRAN. Stoffer er bygd av MOLEKYLER. Hva heter faget der dere har lært alt dette?»
@@ -317,63 +305,202 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
   <div class="fb" id="fbFinal"></div>
 </section>
 
+<!-- ===== BONUSRUNDE ===== -->
+<section class="panel card" id="bonusRoom" style="display:none">
+  <h2>🔐 Bonusrunde · Sifferforskyvning</h2>
+  <div class="help">
+    En hemmelig melding er kryptert med en <strong>Caesar-chiffer</strong> – hver bokstav er forskjøvet med et fast antall plasser i alfabetet.<br>
+    Finn forskyvningsnøkkelen og dekrypter meldingen!
+  </div>
+  <p>Den krypterte meldingen er:</p>
+  <div class="cipher-grid" id="cipherGrid"></div>
+  <div class="shift-hint">
+    💡 <strong>Hint:</strong> Det krypterte ordet <strong id="hintEnc"></strong> betyr noe du finner i naturfag. Prøv ulike forskyvninger (1–9) til det gir mening!
+  </div>
+  <p style="margin-top:10px">Skriv inn forskyvningsnøkkelen (et tall mellom 1 og 9):</p>
+  <div class="row">
+    <input type="text" id="shiftInput" placeholder="Forskyvning (1–9)" maxlength="1" style="max-width:120px">
+    <button class="btn-s" onclick="tryShift()">Prøv forskyvning</button>
+  </div>
+  <div id="decryptedPreview" style="margin-top:12px;font-family:monospace;font-size:18px;letter-spacing:.08em;min-height:28px"></div>
+  <div class="fb" id="fbShift"></div>
+  <div class="stagebox" id="bonusAnswer" style="margin-top:14px">
+    <h3>Skriv inn den dekrypterte meldingen</h3>
+    <div class="row">
+      <input type="text" id="bonusInput" placeholder="Dekryptert melding">
+      <button class="btn-p" onclick="checkBonus()">Bekreft</button>
+    </div>
+    <div class="fb" id="fbBonus"></div>
+  </div>
+</section>
+
 <section class="card final-sec" id="doneBox">
   <h2>🎉 Oppdrag fullført!</h2>
   <p>Dere klarte det! Aurora 7 er åpnet. Dere har vist at dere behersker faget!</p>
   <div class="winner">NATURFAG</div>
+  <div style="margin-top:20px">
+    <button class="btn-r" onclick="location.reload()">🔄 Start på nytt</button>
+  </div>
 </section>
 
 </div>
 <script>
-const cfg={
-  1:{qs:["q1","q2","q3","q4","q5"],code:"23122",codeW:"elg",ans:"nøytron"},
-  2:{qs:["q6","q7","q8","q9","q10"],code:"22322",codeW:"bli",ans:"salt"},
-  3:{qs:["q11","q12","q13","q14","q15"],code:"11211",codeW:"kom",ans:"membran"},
-  4:{qs:["q16","q17","q18","q19","q20"],code:"13121",codeW:"los",ans:"molekyl"}
+// ─── CONFIG ───────────────────────────────────────────────────────────────────
+const cfg = {
+  1: { qs:["q1","q2","q3","q4","q5"], code:"23122", codeW:"elg", ans:"nøytron" },
+  2: { qs:["q6","q7","q8","q9","q10"], code:"22113", codeW:"bli", ans:"salt" },
+  3: { qs:["q11","q12","q13","q14","q15"], code:"11212", codeW:"kom", ans:"membran" },
+  4: { qs:["q16","q17","q18","q19","q20"], code:"13121", codeW:"los", ans:"molekyl" }
 };
-function sel(n){const e=document.querySelector('input[name="'+n+'"]:checked');return e?e.value:"";}
-function norm(s){return(s||"").toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g,"");}
-function setFb(id,msg,ok){const e=document.getElementById(id);e.textContent=msg;e.className="fb "+(ok?"ok":"no");}
-function show(id){document.getElementById(id).classList.add("active");}
-function goTo(id){const el=document.getElementById(id);if(el)window.scrollTo({top:el.offsetTop-14,behavior:"smooth"});}
-function checkQuiz(r){
-  const c=cfg[r],answers=c.qs.map(sel);
-  if(answers.some(a=>!a)){setFb("fb"+r+"q","Svar på alle fem spørsmål først.",false);return;}
-  if(answers.join("")===c.code){setFb("fb"+r+"q","Riktig! Skriv inn tallkoden i feltet under.",true);show("code"+r);goTo("code"+r);}
-  else{setFb("fb"+r+"q","Ikke riktig – sjekk svarene og prøv igjen.",false);}
+
+// Bonus: shift=3, plaintext="ATOM", encrypted="DWRP"
+// Hint word: DWRP → ATOM
+const BONUS_SHIFT = 3;
+const BONUS_PLAIN = "FOTOSYNTESE";
+// Caesar-encrypt FOTOSYNTESE with shift 3 (Norwegian alphabet A-Z, Æ=27,Ø=28,Å=29)
+const NO_ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
+
+function caesarEncrypt(text, shift) {
+  return text.toUpperCase().split("").map(c => {
+    const i = NO_ALPHA.indexOf(c);
+    return i >= 0 ? NO_ALPHA[(i + shift) % NO_ALPHA.length] : c;
+  }).join("");
 }
-function checkCode(r){
-  if((document.getElementById("codeInput"+r).value||"").trim()===cfg[r].code){
-    setFb("fb"+r+"c","Kode godkjent – gåtene åpner seg!",true);show("riddle"+r);goTo("riddle"+r);
-  }else{setFb("fb"+r+"c","Feil kode.",false);}
+function caesarDecrypt(text, shift) {
+  const n = NO_ALPHA.length;
+  return text.toUpperCase().split("").map(c => {
+    const i = NO_ALPHA.indexOf(c);
+    return i >= 0 ? NO_ALPHA[(i - shift + n) % n] : c;
+  }).join("");
 }
-function checkRiddle(r){
-  if(norm(document.getElementById("riddleInput"+r).value)===norm(cfg[r].codeW)){
-    setFb("fb"+r+"r","Kodeord riktig! Anagrammet er låst opp.",true);show("anagram"+r);goTo("anagram"+r);
-  }else{setFb("fb"+r+"r","Feil kodeord. Ta første bokstav i hvert gåtesvar og sett dem i riktig rekkefølge.",false);}
+
+const BONUS_ENC = caesarEncrypt(BONUS_PLAIN, BONUS_SHIFT);
+// Hint: first 4 letters of encrypted word
+const HINT_ENC = BONUS_ENC.slice(0,4);
+const HINT_PLAIN = BONUS_PLAIN.slice(0,4);
+
+// Render cipher grid
+function renderCipher() {
+  const grid = document.getElementById("cipherGrid");
+  grid.innerHTML = "";
+  BONUS_ENC.split("").forEach(ch => {
+    const cell = document.createElement("div");
+    cell.className = "cipher-cell";
+    cell.innerHTML = `<span class="c-enc">${ch}</span>`;
+    grid.appendChild(cell);
+  });
+  document.getElementById("hintEnc").textContent = HINT_ENC;
 }
-function checkAnagram(r){
-  if(norm(document.getElementById("anagramInput"+r).value)===norm(cfg[r].ans)){
-    setFb("fb"+r+"a","Riktig! Ordbrikke låst opp. Neste sone åpner seg...",true);
+
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
+function sel(n) { const e = document.querySelector('input[name="'+n+'"]:checked'); return e ? e.value : ""; }
+function norm(s) {
+  return (s||"").toLowerCase().trim()
+    .replace(/æ/g,"ae").replace(/ø/g,"o").replace(/å/g,"a")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/\s+/g,"");
+}
+function normStrict(s) { return (s||"").toUpperCase().trim(); }
+function setFb(id, msg, ok) { const e = document.getElementById(id); e.textContent = msg; e.className = "fb "+(ok?"ok":"no"); }
+function show(id) { document.getElementById(id).classList.add("active"); }
+function showEl(id) { document.getElementById(id).style.display = "block"; }
+function goTo(id) { const el = document.getElementById(id); if(el) window.scrollTo({top:el.offsetTop-14,behavior:"smooth"}); }
+
+// Track collected frags
+const frags = [];
+function addFrag(word) {
+  frags.push(word.toUpperCase());
+  const display = document.getElementById("fragDisplay");
+  display.innerHTML = frags.map(f => `<div class="frag">${f}</div>`).join("");
+}
+
+// ─── QUIZ ─────────────────────────────────────────────────────────────────────
+function checkQuiz(r) {
+  const c = cfg[r], answers = c.qs.map(sel);
+  if(answers.some(a => !a)) { setFb("fb"+r+"q","Svar på alle fem spørsmål først.",false); return; }
+  if(answers.join("") === c.code) {
+    setFb("fb"+r+"q","Riktig! Gåtene låses opp under.",true);
+    show("riddle"+r); goTo("riddle"+r);
+  } else {
+    setFb("fb"+r+"q","Ikke riktig – sjekk svarene og prøv igjen.",false);
+  }
+}
+
+// ─── RIDDLE ───────────────────────────────────────────────────────────────────
+function checkRiddle(r) {
+  const val = norm(document.getElementById("riddleInput"+r).value);
+  const expected = norm(cfg[r].codeW);
+  if(val === expected) {
+    setFb("fb"+r+"r","Kodeord riktig! Anagrammet er låst opp.",true);
+    show("anagram"+r); goTo("anagram"+r);
+  } else {
+    setFb("fb"+r+"r","Feil kodeord. Ta første bokstav i hvert gåtesvar og sett dem i riktig rekkefølge.",false);
+  }
+}
+
+// ─── ANAGRAM ──────────────────────────────────────────────────────────────────
+function checkAnagram(r) {
+  if(norm(document.getElementById("anagramInput"+r).value) === norm(cfg[r].ans)) {
+    setFb("fb"+r+"a","Riktig! Ordbrikke låst opp. Neste sone åpner seg…",true);
+    addFrag(cfg[r].ans);
     document.getElementById("step"+r).classList.add("done");
-    setTimeout(()=>{
-      if(r<4){
+    setTimeout(() => {
+      if(r < 4) {
         document.getElementById("step"+(r+1)).classList.remove("locked");
         document.getElementById("room"+r).classList.remove("active");
         document.getElementById("room"+(r+1)).classList.add("active");
         window.scrollTo({top:0,behavior:"smooth"});
-      }else{
+      } else {
         document.getElementById("room4").classList.remove("active");
-        show("vault");goTo("vault");
+        show("vault"); goTo("vault");
       }
-    },1400);
-  }else{setFb("fb"+r+"a","Ikke riktig – prøv igjen.",false);}
+    }, 1400);
+  } else {
+    setFb("fb"+r+"a","Ikke riktig – prøv igjen.",false);
+  }
 }
-function checkFinal(){
-  if(norm(document.getElementById("finalInput").value)==="naturfag"){
-    setFb("fbFinal","Riktig!",true);
-    setTimeout(()=>{show("doneBox");goTo("doneBox");},900);
-  }else{setFb("fbFinal","Ikke riktig – tenk på hva dere har lært om i alle fire sonene.",false);}
+
+// ─── FINAL ────────────────────────────────────────────────────────────────────
+function checkFinal() {
+  if(norm(document.getElementById("finalInput").value) === "naturfag") {
+    setFb("fbFinal","Riktig! Bonusrunden venter…",true);
+    setTimeout(() => {
+      document.getElementById("vault").classList.remove("active");
+      document.getElementById("step5").classList.remove("locked");
+      showEl("bonusRoom");
+      renderCipher();
+      goTo("bonusRoom");
+    }, 900);
+  } else {
+    setFb("fbFinal","Ikke riktig – tenk på hva dere har lært i alle fire sonene.",false);
+  }
+}
+
+// ─── BONUS ────────────────────────────────────────────────────────────────────
+function tryShift() {
+  const s = parseInt(document.getElementById("shiftInput").value);
+  if(isNaN(s) || s < 1 || s > 9) { setFb("fbShift","Skriv inn et tall mellom 1 og 9.",false); return; }
+  const decrypted = caesarDecrypt(BONUS_ENC, s);
+  document.getElementById("decryptedPreview").textContent = "→ " + decrypted;
+  if(s === BONUS_SHIFT) {
+    setFb("fbShift","Riktig forskyvning! Skriv inn den dekrypterte meldingen under.",true);
+    show("bonusAnswer"); goTo("bonusAnswer");
+  } else {
+    setFb("fbShift","Ikke riktig forskyvning – prøv et annet tall.",false);
+  }
+}
+
+function checkBonus() {
+  const val = document.getElementById("bonusInput").value.trim().toUpperCase().replace(/\s+/g,"");
+  if(val === BONUS_PLAIN) {
+    setFb("fbBonus","Strålende! Dere knekte koden! 🎉",true);
+    document.getElementById("step5").classList.add("done");
+    setTimeout(() => {
+      showEl("doneBox"); show("doneBox"); goTo("doneBox");
+    }, 900);
+  } else {
+    setFb("fbBonus","Ikke helt riktig – dobbeltsjekk den dekrypterte meldingen.",false);
+  }
 }
 </script>
 </body>
