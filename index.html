@@ -16,70 +16,45 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Hel
   background:linear-gradient(170deg,#f7fbf7 0%,#edf4ef 100%);color:var(--text);line-height:1.55;}
 .wrap{max-width:960px;margin:0 auto;padding:14px 12px 40px}
 h1,h2,h3{margin:0 0 10px;line-height:1.15}
-h1{font-size:clamp(28px,6vw,40px)}
-h2{font-size:clamp(20px,4.5vw,28px)}
-h3{font-size:17px}
+h1{font-size:clamp(28px,6vw,40px)}h2{font-size:clamp(20px,4.5vw,28px)}h3{font-size:17px}
 p{margin:0 0 12px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
 .hero{padding:22px 18px 20px;margin-bottom:14px;position:relative;overflow:hidden}
-.hero::after{content:"";position:absolute;right:-28px;top:-28px;width:150px;height:150px;
-  border-radius:50%;background:rgba(27,107,85,.08)}
-.badge{display:inline-block;padding:7px 12px;border-radius:999px;background:#e8f4ee;
-  color:var(--green2);font-weight:700;margin-bottom:10px;font-size:14px}
+.hero::after{content:"";position:absolute;right:-28px;top:-28px;width:150px;height:150px;border-radius:50%;background:rgba(27,107,85,.08)}
+.badge{display:inline-block;padding:7px 12px;border-radius:999px;background:#e8f4ee;color:var(--green2);font-weight:700;margin-bottom:10px;font-size:14px}
 .story{margin-top:12px;padding:14px;border-radius:14px;background:var(--soft);border:1px solid var(--line)}
 .muted{color:var(--muted)}
 .progress{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
 .step{padding:12px;border-radius:14px;border:1px solid var(--line);background:#fff;min-height:82px}
 .step strong{display:block;text-transform:uppercase;letter-spacing:.04em;font-size:12px;color:var(--green);margin-bottom:4px}
-.step.locked{opacity:.5}
-.step.done{background:#eff9f2;border-color:#b5d9bc}
-.panel{padding:18px;margin-bottom:14px;display:none}
-.panel.active{display:block}
-.help{padding:12px 14px;border-left:4px solid var(--gold);background:#faf8f2;
-  border-radius:12px;margin:8px 0 14px;font-size:15px}
-.q{padding:14px;margin-bottom:10px;border:1px solid var(--line);border-radius:14px;
-  background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.step.locked{opacity:.5}.step.done{background:#eff9f2;border-color:#b5d9bc}
+.panel{padding:18px;margin-bottom:14px;display:none}.panel.active{display:block}
+.help{padding:12px 14px;border-left:4px solid var(--gold);background:#faf8f2;border-radius:12px;margin:8px 0 14px;font-size:15px}
+.q{padding:14px;margin-bottom:10px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.04)}
 .q-title{font-weight:800;margin-bottom:10px}
 .opts{display:grid;gap:9px}
-label.opt{display:flex;gap:10px;align-items:flex-start;padding:11px 12px;
-  border:1px solid var(--line);border-radius:12px;background:#fcfdfc;
-  cursor:pointer;-webkit-tap-highlight-color:transparent}
+label.opt{display:flex;gap:10px;align-items:flex-start;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fcfdfc;cursor:pointer;-webkit-tap-highlight-color:transparent}
 input[type=radio]{margin-top:3px;transform:scale(1.1);accent-color:var(--green);min-width:20px;min-height:20px}
 .controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-button{appearance:none;border:0;border-radius:13px;padding:13px 16px;min-height:48px;
-  font:inherit;font-weight:800;cursor:pointer}
-.btn-p{background:var(--green);color:#fff}
-.btn-s{background:var(--soft);color:var(--text);border:1px solid var(--line)}
-.stagebox{padding:16px;border-radius:14px;border:1px solid var(--line);
-  background:#fff;margin-top:14px;display:none}
+button{appearance:none;border:0;border-radius:13px;padding:13px 16px;min-height:48px;font:inherit;font-weight:800;cursor:pointer}
+.btn-p{background:var(--green);color:#fff}.btn-s{background:var(--soft);color:var(--text);border:1px solid var(--line)}
+.stagebox{padding:16px;border-radius:14px;border:1px solid var(--line);background:#fff;margin-top:14px;display:none}
 .stagebox.active{display:block}
-.riddle-box{padding:14px 16px;border-radius:14px;background:#f0f8f4;
-  border:1px solid #bcd9c8;margin:12px 0}
+.riddle-box{padding:14px 16px;border-radius:14px;background:#f0f8f4;border:1px solid #bcd9c8;margin:12px 0}
 .riddle-row{display:flex;gap:10px;align-items:center;margin-bottom:10px}
-.r-num{background:var(--green);color:#fff;width:28px;height:28px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0}
+.r-num{background:var(--green);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0}
 .r-text{font-style:italic;flex:1}
-.r-ans{width:120px;padding:8px;border-radius:8px;border:1px solid #bcd9c8;font:inherit}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
-.chip{padding:9px 14px;border-radius:999px;background:#eef4ef;border:1px solid var(--line);
-  font-weight:900;font-size:18px;letter-spacing:.06em}
+.chip{padding:9px 14px;border-radius:999px;background:#eef4ef;border:1px solid var(--line);font-weight:900;font-size:18px;letter-spacing:.06em}
 .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}
-input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:12px;
-  border:1px solid var(--line);font:inherit;font-size:16px;background:#fff}
+input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:12px;border:1px solid var(--line);font:inherit;font-size:16px;background:#fff}
 .fb{min-height:24px;margin-top:10px;font-weight:700}
-.ok{color:var(--ok)}
-.no{color:var(--red)}
-.vault{padding:18px;display:none}
-.vault.active{display:block}
+.ok{color:var(--ok)}.no{color:var(--red)}
+.vault{padding:18px;display:none}.vault.active{display:block}
 .frags{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
-.frag{padding:14px 20px;border-radius:14px;background:var(--soft);border:1px solid var(--line);
-  font-weight:900;letter-spacing:.06em;font-size:18px}
-.final-sec{padding:18px;display:none;text-align:center}
-.final-sec.active{display:block}
-.winner{margin-top:14px;padding:20px;border-radius:16px;background:#eaf8ee;
-  border:1px solid #b5d9bc;font-size:clamp(28px,6vw,44px);font-weight:900;
-  color:var(--green2);letter-spacing:.04em}
-.small{font-size:14px;color:var(--muted);margin-top:8px}
+.frag{padding:14px 20px;border-radius:14px;background:var(--soft);border:1px solid var(--line);font-weight:900;letter-spacing:.06em;font-size:18px}
+.final-sec{padding:18px;display:none;text-align:center}.final-sec.active{display:block}
+.winner{margin-top:14px;padding:20px;border-radius:16px;background:#eaf8ee;border:1px solid #b5d9bc;font-size:clamp(28px,6vw,44px);font-weight:900;color:var(--green2);letter-spacing:.04em}
 @media(max-width:720px){.progress{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
@@ -89,27 +64,27 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 <section class="hero card">
   <div class="badge">Naturfag · Escape room</div>
   <h1>Jakten på koden</h1>
-  <p>Forskningsstasjonen <strong>Aurora 7</strong> er låst. For å slippe ut må dere gjennom fire soner.</p>
+  <p>Forskningsstasjonen <strong>Aurora 7</strong> er låst ned. For å slippe ut må dere gjennom fire soner.</p>
   <div class="story">
-    <p><strong>Slik fungerer det nå:</strong></p>
+    <p><strong>Slik fungerer det:</strong></p>
     <p>🔢 <strong>Steg 1:</strong> Svar på fem spørsmål. Riktige svar gir en tallkode.</p>
-    <p>🧩 <strong>Steg 2:</strong> Løs tre gåter. Første bokstav fra hvert svar gir et kodeord.</p>
-    <p>🔤 <strong>Steg 3:</strong> Bruk kodeordet til å låse opp et anagram. Løs anagrammet og få ordbrikken.</p>
+    <p>🧩 <strong>Steg 2:</strong> Løs tre gåter. Ta <strong>første bokstav</strong> i hvert svar og sett dem sammen til et trebokstavers kodeord.</p>
+    <p>🔤 <strong>Steg 3:</strong> Kodeordet låser opp et anagram. Løs det for å få ordbrikken.</p>
+    <p class="muted">Fire ordbrikker → slutthvelvet → løsningsordet.</p>
   </div>
 </section>
 
 <section class="progress">
-  <div class="step" id="step1"><strong>Sone 1</strong>Grunnstoff</div>
-  <div class="step locked" id="step2"><strong>Sone 2</strong>Syrer</div>
+  <div class="step" id="step1"><strong>Sone 1</strong>Grunnstoff og atomer</div>
+  <div class="step locked" id="step2"><strong>Sone 2</strong>Syrer og baser</div>
   <div class="step locked" id="step3"><strong>Sone 3</strong>Cellen</div>
-  <div class="step locked" id="step4"><strong>Sone 4</strong>Natur</div>
+  <div class="step locked" id="step4"><strong>Sone 4</strong>Natur og hverdagskjemi</div>
 </section>
 
 <!-- ===== SONE 1 ===== -->
 <section class="panel card active" id="room1">
   <h2>Sone 1 · Grunnstoff og atomer</h2>
   <div class="help">Steg 1: Svar på alle fem spørsmål for å få tallkoden.</div>
-
   <div class="q"><div class="q-title">1. Hva kjennetegner et grunnstoff?</div><div class="opts">
     <label class="opt"><input type="radio" name="q1" value="1"> Det kan deles i enklere stoffer</label>
     <label class="opt"><input type="radio" name="q1" value="2"> Det består av én type atom</label>
@@ -135,46 +110,31 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
     <label class="opt"><input type="radio" name="q5" value="2"> Saltsyre (pH 2)</label>
     <label class="opt"><input type="radio" name="q5" value="3"> Natron (pH 9)</label>
   </div></div>
-
-  <div class="controls">
-    <button class="btn-p" onclick="checkQuiz(1)">Sjekk svar →</button>
-    <button class="btn-s" onclick="resetRoom(1)">Nullstill</button>
-  </div>
+  <div class="controls"><button class="btn-p" onclick="checkQuiz(1)">Sjekk svar →</button></div>
   <div class="fb" id="fb1q"></div>
-
   <div class="stagebox" id="code1">
-    <h3>Steg 2 · Gåtene</h3>
-    <p>Skriv inn tallkoden <strong><span id="showCode1"></span></strong> for å låse opp gåtene:</p>
-    <div class="row">
-      <input type="text" id="codeInput1" placeholder="_ _ _ _ _">
-      <button class="btn-s" onclick="checkCode(1)">Lås opp</button>
-    </div>
+    <h3>Steg 2 · Lås opp gåtene</h3>
+    <p>Skriv inn tallkoden for å låse opp de tre gåtene:</p>
+    <div class="row"><input type="text" id="codeInput1" placeholder="_ _ _ _ _"><button class="btn-s" onclick="checkCode(1)">Lås opp</button></div>
     <div class="fb" id="fb1c"></div>
   </div>
-
   <div class="stagebox" id="riddle1">
-    <h3>Løs gåtene for å finne kodeordet</h3>
-    <p>Svar på gåtene. Ta <strong>første bokstav</strong> i hvert svar og sett dem sammen til et trebokstavers kodeord.</p>
+    <h3>Gåtene – finn kodeordet</h3>
+    <p>Løs alle tre. Ta <strong>første bokstav</strong> i hvert svar og sett dem sammen.</p>
     <div class="riddle-box">
-      <div class="riddle-row"><div class="r-num">1</div><div class="r-text">Negativ partikkel som kretser rundt atomkjernen</div><input type="text" id="r1_1" class="r-ans"></div>
-      <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Protoner er positive, elektroner er negative. Dette kalles...</div><input type="text" id="r1_2" class="r-ans"></div>
-      <div class="riddle-row"><div class="r-num">3</div><div class="r-text">Stoff som bare består av én type atom</div><input type="text" id="r1_3" class="r-ans"></div>
+      <div class="riddle-row"><div class="r-num">1</div><div class="r-text">Negativ partikkel som kretser rundt atomkjernen</div></div>
+      <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Protoner er positive, elektroner er negative – dette kalles deres...</div></div>
+      <div class="riddle-row"><div class="r-num">3</div><div class="r-text">Stoff som bare består av én type atom</div></div>
     </div>
-    <div class="row">
-      <input type="text" id="riddleInput1" maxlength="3" placeholder="Skriv 3-bokstavers kodeord">
-      <button class="btn-s" onclick="checkRiddle(1)">Sjekk kodeord</button>
-    </div>
+    <p class="muted">Svar: ELEKTRON · LADNING · GRUNNSTOFF → første bokstav gir kodeordet</p>
+    <div class="row"><input type="text" id="riddleInput1" maxlength="3" placeholder="3-bokstavers kodeord"><button class="btn-s" onclick="checkRiddle(1)">Sjekk</button></div>
     <div class="fb" id="fb1r"></div>
   </div>
-
   <div class="stagebox" id="anagram1">
     <h3>Steg 3 · Anagram</h3>
-    <p>Bokstavene under skjuler et fagord (ikke svaret på en gåte). Løs det for å få ordbrikken.</p>
+    <p>Bokstavene under skjuler et naturfagord. Løs det for å få ordbrikken.</p>
     <div class="chips"><div class="chip">N</div><div class="chip">O</div><div class="chip">R</div><div class="chip">Ø</div><div class="chip">Y</div><div class="chip">T</div></div>
-    <div class="row">
-      <input type="text" id="anagramInput1" placeholder="Løsning på anagram">
-      <button class="btn-s" onclick="checkAnagram(1)">Bekreft</button>
-    </div>
+    <div class="row"><input type="text" id="anagramInput1" placeholder="Riktig ord"><button class="btn-s" onclick="checkAnagram(1)">Bekreft</button></div>
     <div class="fb" id="fb1a"></div>
   </div>
 </section>
@@ -182,7 +142,6 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 <!-- ===== SONE 2 ===== -->
 <section class="panel card" id="room2">
   <h2>Sone 2 · Syrer og baser</h2>
-
   <div class="q"><div class="q-title">6. Hva kjennetegner en base?</div><div class="opts">
     <label class="opt"><input type="radio" name="q6" value="1"> pH under 7</label>
     <label class="opt"><input type="radio" name="q6" value="2"> pH over 7</label>
@@ -208,31 +167,28 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
     <label class="opt"><input type="radio" name="q10" value="2"> DNA</label>
     <label class="opt"><input type="radio" name="q10" value="3"> Proteiner</label>
   </div></div>
-
   <div class="controls"><button class="btn-p" onclick="checkQuiz(2)">Sjekk svar →</button></div>
   <div class="fb" id="fb2q"></div>
-
   <div class="stagebox" id="code2">
-    <h3>Steg 2 · Gåtene</h3>
+    <h3>Steg 2 · Lås opp gåtene</h3>
     <div class="row"><input type="text" id="codeInput2" placeholder="_ _ _ _ _"><button class="btn-s" onclick="checkCode(2)">Lås opp</button></div>
     <div class="fb" id="fb2c"></div>
   </div>
-
   <div class="stagebox" id="riddle2">
-    <h3>Kodeord-gåter</h3>
+    <h3>Gåtene – finn kodeordet</h3>
     <div class="riddle-box">
-      <div class="riddle-row"><div class="r-num">1</div><div class="r-text">pH over 7, glatt, nøytraliserer syre</div><input type="text" id="r2_1" class="r-ans"></div>
-      <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Naturfargestoff som skifter farge ved pH-endring</div><input type="text" id="r2_2" class="r-ans"></div>
-      <div class="riddle-row"><div class="r-num">3</div><div class="r-text">Fellesord for stoffer som brukes til å måle pH</div><input type="text" id="r2_3" class="r-ans"></div>
+      <div class="riddle-row"><div class="r-num">1</div><div class="r-text">pH over 7, glatt og sepeaktig, nøytraliserer syre</div></div>
+      <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Jeg er et fargestoff laget av lav. I syre skifter jeg fra blå til rød. Hva heter jeg?</div></div>
+      <div class="riddle-row"><div class="r-num">3</div><div class="r-text">Fellesord for stoffer som brukes til å måle om noe er surt eller basisk</div></div>
     </div>
+    <p class="muted">Svar: BASE · LAKMUS · INDIKATOR → første bokstav gir kodeordet</p>
     <div class="row"><input type="text" id="riddleInput2" maxlength="3" placeholder="3-bokstavers kodeord"><button class="btn-s" onclick="checkRiddle(2)">Sjekk</button></div>
     <div class="fb" id="fb2r"></div>
   </div>
-
   <div class="stagebox" id="anagram2">
     <h3>Steg 3 · Anagram</h3>
     <div class="chips"><div class="chip">T</div><div class="chip">L</div><div class="chip">A</div><div class="chip">S</div></div>
-    <div class="row"><input type="text" id="anagramInput2" placeholder="Løsning på anagram"><button class="btn-s" onclick="checkAnagram(2)">Bekreft</button></div>
+    <div class="row"><input type="text" id="anagramInput2" placeholder="Riktig ord"><button class="btn-s" onclick="checkAnagram(2)">Bekreft</button></div>
     <div class="fb" id="fb2a"></div>
   </div>
 </section>
@@ -240,7 +196,6 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 <!-- ===== SONE 3 ===== -->
 <section class="panel card" id="room3">
   <h2>Sone 3 · Cellen</h2>
-
   <div class="q"><div class="q-title">11. Hva er mitokondrienes funksjon?</div><div class="opts">
     <label class="opt"><input type="radio" name="q11" value="1"> Lage energi til cellen</label>
     <label class="opt"><input type="radio" name="q11" value="2"> Transportere vann</label>
@@ -266,31 +221,28 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
     <label class="opt"><input type="radio" name="q15" value="2"> Energi forsvinner</label>
     <label class="opt"><input type="radio" name="q15" value="3"> Energi lagres uten bruk</label>
   </div></div>
-
   <div class="controls"><button class="btn-p" onclick="checkQuiz(3)">Sjekk svar →</button></div>
   <div class="fb" id="fb3q"></div>
-
   <div class="stagebox" id="code3">
-    <h3>Steg 2 · Gåtene</h3>
+    <h3>Steg 2 · Lås opp gåtene</h3>
     <div class="row"><input type="text" id="codeInput3" placeholder="_ _ _ _ _"><button class="btn-s" onclick="checkCode(3)">Lås opp</button></div>
     <div class="fb" id="fb3c"></div>
   </div>
-
   <div class="stagebox" id="riddle3">
-    <h3>Kodeord-gåter</h3>
+    <h3>Gåtene – finn kodeordet</h3>
     <div class="riddle-box">
-      <div class="riddle-row"><div class="r-num">1</div><div class="r-text">En liten spesialisert del inne i cellen</div><input type="text" id="r3_1" class="r-ans"></div>
-      <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Celleånding – prosessen der cellen bruker oksygen for å lage energi</div><input type="text" id="r3_2" class="r-ans"></div>
-      <div class="riddle-row"><div class="r-num">3</div><div class="r-text">Cellens kraftverk</div><input type="text" id="r3_3" class="r-ans"></div>
+      <div class="riddle-row"><div class="r-num">1</div><div class="r-text">Jeg er midtpunktet i cellen og inneholder DNA. Hva heter jeg?</div></div>
+      <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Ribosomer, mitokondrier og kloroplaster er eksempler på meg. Hva er jeg?</div></div>
+      <div class="riddle-row"><div class="r-num">3</div><div class="r-text">Jeg er cellens kraftverk og produserer energi. Hva heter jeg?</div></div>
     </div>
+    <p class="muted">Svar: KJERNE · ORGANELLE · MITOKONDRIE → første bokstav gir kodeordet</p>
     <div class="row"><input type="text" id="riddleInput3" maxlength="3" placeholder="3-bokstavers kodeord"><button class="btn-s" onclick="checkRiddle(3)">Sjekk</button></div>
     <div class="fb" id="fb3r"></div>
   </div>
-
   <div class="stagebox" id="anagram3">
     <h3>Steg 3 · Anagram</h3>
-    <div class="chips"><div class="chip">N</div><div class="chip">E</div><div class="chip">R</div><div class="chip">K</div><div class="chip">E</div><div class="chip">J</div></div>
-    <div class="row"><input type="text" id="anagramInput3" placeholder="Løsning på anagram"><button class="btn-s" onclick="checkAnagram(3)">Bekreft</button></div>
+    <div class="chips"><div class="chip">B</div><div class="chip">R</div><div class="chip">A</div><div class="chip">N</div><div class="chip">M</div><div class="chip">E</div><div class="chip">M</div></div>
+    <div class="row"><input type="text" id="anagramInput3" placeholder="Riktig ord"><button class="btn-s" onclick="checkAnagram(3)">Bekreft</button></div>
     <div class="fb" id="fb3a"></div>
   </div>
 </section>
@@ -298,7 +250,6 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 <!-- ===== SONE 4 ===== -->
 <section class="panel card" id="room4">
   <h2>Sone 4 · Natur og hverdagskjemi</h2>
-
   <div class="q"><div class="q-title">16. Hva er et eksempel på kjemi i hverdagen?</div><div class="opts">
     <label class="opt"><input type="radio" name="q16" value="1"> Kroppen bryter ned mat</label>
     <label class="opt"><input type="radio" name="q16" value="2"> Sola lyser</label>
@@ -324,31 +275,28 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
     <label class="opt"><input type="radio" name="q20" value="2"> Ett proton</label>
     <label class="opt"><input type="radio" name="q20" value="3"> En celle</label>
   </div></div>
-
   <div class="controls"><button class="btn-p" onclick="checkQuiz(4)">Sjekk svar →</button></div>
   <div class="fb" id="fb4q"></div>
-
   <div class="stagebox" id="code4">
-    <h3>Steg 2 · Gåtene</h3>
+    <h3>Steg 2 · Lås opp gåtene</h3>
     <div class="row"><input type="text" id="codeInput4" placeholder="_ _ _ _ _"><button class="btn-s" onclick="checkCode(4)">Lås opp</button></div>
     <div class="fb" id="fb4c"></div>
   </div>
-
   <div class="stagebox" id="riddle4">
-    <h3>Kodeord-gåter</h3>
+    <h3>Gåtene – finn kodeordet</h3>
     <div class="riddle-box">
-      <div class="riddle-row"><div class="r-num">1</div><div class="r-text">Blandingen av gasser vi puster inn</div><input type="text" id="r4_1" class="r-ans"></div>
-      <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Gassen planter produserer i fotosyntesen</div><input type="text" id="r4_2" class="r-ans"></div>
-      <div class="riddle-row"><div class="r-num">3</div><div class="r-text">Energikilden til fotosyntesen</div><input type="text" id="r4_3" class="r-ans"></div>
+      <div class="riddle-row"><div class="r-num">1</div><div class="r-text">Blandingen av gasser vi puster inn</div></div>
+      <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Gassen planter produserer i fotosyntesen, og som vi trenger for å leve</div></div>
+      <div class="riddle-row"><div class="r-num">3</div><div class="r-text">Energikilden til fotosyntesen – uten den stopper alt planteliv</div></div>
     </div>
+    <p class="muted">Svar: LUFT · OKSYGEN · SOLLYS → første bokstav gir kodeordet</p>
     <div class="row"><input type="text" id="riddleInput4" maxlength="3" placeholder="3-bokstavers kodeord"><button class="btn-s" onclick="checkRiddle(4)">Sjekk</button></div>
     <div class="fb" id="fb4r"></div>
   </div>
-
   <div class="stagebox" id="anagram4">
     <h3>Steg 3 · Anagram</h3>
     <div class="chips"><div class="chip">Y</div><div class="chip">K</div><div class="chip">L</div><div class="chip">L</div><div class="chip">O</div><div class="chip">M</div><div class="chip">E</div></div>
-    <div class="row"><input type="text" id="anagramInput4" placeholder="Løsning på anagram"><button class="btn-s" onclick="checkAnagram(4)">Bekreft</button></div>
+    <div class="row"><input type="text" id="anagramInput4" placeholder="Riktig ord"><button class="btn-s" onclick="checkAnagram(4)">Bekreft</button></div>
     <div class="fb" id="fb4a"></div>
   </div>
 </section>
@@ -359,11 +307,11 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
   <p>Dere har samlet fire ordbrikker:</p>
   <div class="frags">
     <div class="frag">NØYTRON</div><div class="frag">SALT</div>
-    <div class="frag">KJERNE</div><div class="frag">MOLEKYL</div>
+    <div class="frag">MEMBRAN</div><div class="frag">MOLEKYL</div>
   </div>
   <div class="riddle-box" style="margin-top:14px">
-    <blockquote style="margin:0;border:0;padding:4px">
-      «Atomer har en KJERNE med NØYTRONER. Syrer og baser danner SALT. Stoffer er bygd av MOLEKYLER. Hva heter faget der dere har lært alt dette?»
+    <blockquote style="margin:0;border:0;padding:4px;font-style:italic">
+      «Atomer har NØYTRONER i kjernen. Syrer og baser danner SALT. Celler er omgitt av en MEMBRAN. Stoffer er bygd av MOLEKYLER. Hva heter faget der dere har lært alt dette?»
     </blockquote>
   </div>
   <div class="row">
@@ -375,7 +323,7 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 
 <section class="card final-sec" id="doneBox">
   <h2>🎉 Oppdrag fullført!</h2>
-  <p>Dere klarte det! Dere har vist at dere behersker faget!</p>
+  <p>Dere klarte det! Aurora 7 er åpnet. Dere har vist at dere behersker faget!</p>
   <div class="winner">NATURFAG</div>
 </section>
 
@@ -384,43 +332,33 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 const cfg={
   1:{qs:["q1","q2","q3","q4","q5"],code:"23122",codeW:"elg",ans:"nøytron"},
   2:{qs:["q6","q7","q8","q9","q10"],code:"22322",codeW:"bli",ans:"salt"},
-  3:{qs:["q11","q12","q13","q14","q15"],code:"11211",codeW:"orm",ans:"kjerne"},
+  3:{qs:["q11","q12","q13","q14","q15"],code:"11211",codeW:"kom",ans:"membran"},
   4:{qs:["q16","q17","q18","q19","q20"],code:"13121",codeW:"los",ans:"molekyl"}
 };
-
 function sel(n){const e=document.querySelector('input[name="'+n+'"]:checked');return e?e.value:"";}
 function norm(s){return(s||"").toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g,"");}
 function setFb(id,msg,ok){const e=document.getElementById(id);e.textContent=msg;e.className="fb "+(ok?"ok":"no");}
 function show(id){document.getElementById(id).classList.add("active");}
 function goTo(id){const el=document.getElementById(id);if(el)window.scrollTo({top:el.offsetTop-14,behavior:"smooth"});}
-
 function checkQuiz(r){
   const c=cfg[r],answers=c.qs.map(sel);
   if(answers.some(a=>!a)){setFb("fb"+r+"q","Svar på alle fem spørsmål først.",false);return;}
-  if(answers.join("")===c.code){
-    setFb("fb"+r+"q","Riktig! Lås opp neste steg.",true);
-    show("code"+r);goTo("code"+r);
-  }else{setFb("fb"+r+"q","Feil i svar.",false);}
+  if(answers.join("")===c.code){setFb("fb"+r+"q","Riktig! Skriv inn tallkoden i feltet under.",true);show("code"+r);goTo("code"+r);}
+  else{setFb("fb"+r+"q","Ikke riktig – sjekk svarene og prøv igjen.",false);}
 }
-
 function checkCode(r){
   if((document.getElementById("codeInput"+r).value||"").trim()===cfg[r].code){
-    setFb("fb"+r+"c","Kode godkjent. Gåter låst opp.",true);
-    show("riddle"+r);goTo("riddle"+r);
+    setFb("fb"+r+"c","Kode godkjent – gåtene åpner seg!",true);show("riddle"+r);goTo("riddle"+r);
   }else{setFb("fb"+r+"c","Feil kode.",false);}
 }
-
 function checkRiddle(r){
-  const val=norm(document.getElementById("riddleInput"+r).value);
-  if(val===norm(cfg[r].codeW)){
-    setFb("fb"+r+"r","Kodeord riktig! Anagram låst opp.",true);
-    show("anagram"+r);goTo("anagram"+r);
-  }else{setFb("fb"+r+"r","Feil kodeord. Har dere tatt første bokstav fra riktige svar?",false);}
+  if(norm(document.getElementById("riddleInput"+r).value)===norm(cfg[r].codeW)){
+    setFb("fb"+r+"r","Kodeord riktig! Anagrammet er låst opp.",true);show("anagram"+r);goTo("anagram"+r);
+  }else{setFb("fb"+r+"r","Feil kodeord. Ta første bokstav i hvert gåtesvar og sett dem i riktig rekkefølge.",false);}
 }
-
 function checkAnagram(r){
   if(norm(document.getElementById("anagramInput"+r).value)===norm(cfg[r].ans)){
-    setFb("fb"+r+"a","Riktig!",true);
+    setFb("fb"+r+"a","Riktig! Ordbrikke låst opp. Neste sone åpner seg...",true);
     document.getElementById("step"+r).classList.add("done");
     setTimeout(()=>{
       if(r<4){
@@ -432,22 +370,14 @@ function checkAnagram(r){
         document.getElementById("room4").classList.remove("active");
         show("vault");goTo("vault");
       }
-    },1200);
-  }else{setFb("fb"+r+"a","Ikke riktig anagram.",false);}
+    },1400);
+  }else{setFb("fb"+r+"a","Ikke riktig – prøv igjen.",false);}
 }
-
 function checkFinal(){
   if(norm(document.getElementById("finalInput").value)==="naturfag"){
     setFb("fbFinal","Riktig!",true);
     setTimeout(()=>{show("doneBox");goTo("doneBox");},900);
-  }else{setFb("fbFinal","Ikke riktig.",false);}
-}
-
-function resetRoom(r){
-  cfg[r].qs.forEach(q=>document.querySelectorAll('input[name="'+q+'"]').forEach(e=>e.checked=false));
-  ["codeInput","riddleInput","anagramInput"].forEach(p=>{const f=document.getElementById(p+r);if(f)f.value="";});
-  ["fb"+r+"q","fb"+r+"c","fb"+r+"r","fb"+r+"a"].forEach(id=>{const e=document.getElementById(id);if(e){e.textContent="";e.className="fb";}});
-  ["code","riddle","anagram"].forEach(p=>document.getElementById(p+r).classList.remove("active"));
+  }else{setFb("fbFinal","Ikke riktig – tenk på hva dere har lært om i alle fire sonene.",false);}
 }
 </script>
 </body>
