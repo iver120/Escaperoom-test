@@ -55,8 +55,11 @@ button{appearance:none;border:0;border-radius:13px;padding:13px 16px;min-height:
 .stagebox.active{display:block}
 .riddle-box{padding:14px 16px;border-radius:14px;background:#f0f8f4;
   border:1px solid #bcd9c8;margin:12px 0}
-.riddle-box blockquote{margin:8px 0 0;padding:12px 14px;background:#fff;
-  border-radius:12px;border-left:4px solid var(--green);font-style:italic;font-size:16px}
+.riddle-row{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.r-num{background:var(--green);color:#fff;width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0}
+.r-text{font-style:italic;flex:1}
+.r-ans{width:120px;padding:8px;border-radius:8px;border:1px solid #bcd9c8;font:inherit}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
 .chip{padding:9px 14px;border-radius:999px;background:#eef4ef;border:1px solid var(--line);
   font-weight:900;font-size:18px;letter-spacing:.06em}
@@ -77,9 +80,7 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
   border:1px solid #b5d9bc;font-size:clamp(28px,6vw,44px);font-weight:900;
   color:var(--green2);letter-spacing:.04em}
 .small{font-size:14px;color:var(--muted);margin-top:8px}
-@media(max-width:720px){
-  .progress{grid-template-columns:repeat(2,1fr)}
-}
+@media(max-width:720px){.progress{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -88,53 +89,47 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 <section class="hero card">
   <div class="badge">Naturfag · Escape room</div>
   <h1>Jakten på koden</h1>
-  <p>Forskningsstasjonen <strong>Aurora 7</strong> er låst ned. For å slippe ut må dere gjennom fire soner – én for hvert tema dere har jobbet med.</p>
+  <p>Forskningsstasjonen <strong>Aurora 7</strong> er låst. For å slippe ut må dere gjennom fire soner.</p>
   <div class="story">
-    <p><strong>Slik fungerer hver sone:</strong></p>
-    <p>🔢 <strong>Steg 1:</strong> Svar på fem spørsmål. Riktige svar gir en femsifret tallkode.</p>
-    <p>🧩 <strong>Steg 2:</strong> Skriv inn tallkoden for å låse opp en gåte. Løs gåten – svaret er et naturfagord.</p>
-    <p>🔤 <strong>Steg 3:</strong> Bokstavene i det samme fagord er stokket om. Skriv dem i riktig rekkefølge for å bekrefte svaret og få ordbrikken.</p>
-    <p class="muted">Når alle fire ordbrikker er samlet, åpnes slutthvelvet med én siste gåte.</p>
+    <p><strong>Slik fungerer det nå:</strong></p>
+    <p>🔢 <strong>Steg 1:</strong> Svar på fem spørsmål. Riktige svar gir en tallkode.</p>
+    <p>🧩 <strong>Steg 2:</strong> Løs tre gåter. Første bokstav fra hvert svar gir et kodeord.</p>
+    <p>🔤 <strong>Steg 3:</strong> Bruk kodeordet til å låse opp et anagram. Løs anagrammet og få ordbrikken.</p>
   </div>
 </section>
 
 <section class="progress">
-  <div class="step" id="step1"><strong>Sone 1</strong>Grunnstoff og atomer</div>
-  <div class="step locked" id="step2"><strong>Sone 2</strong>Syrer og baser</div>
+  <div class="step" id="step1"><strong>Sone 1</strong>Grunnstoff</div>
+  <div class="step locked" id="step2"><strong>Sone 2</strong>Syrer</div>
   <div class="step locked" id="step3"><strong>Sone 3</strong>Cellen</div>
-  <div class="step locked" id="step4"><strong>Sone 4</strong>Natur og hverdagskjemi</div>
+  <div class="step locked" id="step4"><strong>Sone 4</strong>Natur</div>
 </section>
 
 <!-- ===== SONE 1 ===== -->
 <section class="panel card active" id="room1">
   <h2>Sone 1 · Grunnstoff og atomer</h2>
-  <p class="muted">Grunnlaboratoriet. Alt stoff er bygget opp av noe – men hva? Og hva skjer når stoffer reagerer med hverandre?</p>
-  <div class="help">Svar på alle fem spørsmål. Tallene fra riktige svar gir koden til steg 2.</div>
+  <div class="help">Steg 1: Svar på alle fem spørsmål for å få tallkoden.</div>
 
   <div class="q"><div class="q-title">1. Hva kjennetegner et grunnstoff?</div><div class="opts">
     <label class="opt"><input type="radio" name="q1" value="1"> Det kan deles i enklere stoffer</label>
     <label class="opt"><input type="radio" name="q1" value="2"> Det består av én type atom</label>
     <label class="opt"><input type="radio" name="q1" value="3"> Det er alltid flytende</label>
   </div></div>
-
   <div class="q"><div class="q-title">2. Hva er riktig om atomets oppbygning?</div><div class="opts">
     <label class="opt"><input type="radio" name="q2" value="1"> Protoner er negativt ladet</label>
     <label class="opt"><input type="radio" name="q2" value="2"> Elektroner har positiv ladning</label>
     <label class="opt"><input type="radio" name="q2" value="3"> Protoner er positive og elektroner negative</label>
   </div></div>
-
   <div class="q"><div class="q-title">3. Hva skjer i en kjemisk reaksjon?</div><div class="opts">
     <label class="opt"><input type="radio" name="q3" value="1"> Nye stoffer dannes</label>
     <label class="opt"><input type="radio" name="q3" value="2"> Atomer forsvinner</label>
     <label class="opt"><input type="radio" name="q3" value="3"> Stoffet blir mindre</label>
   </div></div>
-
   <div class="q"><div class="q-title">4. Hva er pH-skalaen et mål på?</div><div class="opts">
     <label class="opt"><input type="radio" name="q4" value="1"> Temperatur</label>
     <label class="opt"><input type="radio" name="q4" value="2"> Surhetsgrad</label>
     <label class="opt"><input type="radio" name="q4" value="3"> Tetthet</label>
   </div></div>
-
   <div class="q"><div class="q-title">5. Hvilket stoff er surt?</div><div class="opts">
     <label class="opt"><input type="radio" name="q5" value="1"> Vann (pH 7)</label>
     <label class="opt"><input type="radio" name="q5" value="2"> Saltsyre (pH 2)</label>
@@ -148,33 +143,36 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
   <div class="fb" id="fb1q"></div>
 
   <div class="stagebox" id="code1">
-    <h3>Steg 2 · Tallkode</h3>
-    <p>Tallkoden er riktig. Skriv den inn for å låse opp gåten.</p>
+    <h3>Steg 2 · Gåtene</h3>
+    <p>Skriv inn tallkoden <strong><span id="showCode1"></span></strong> for å låse opp gåtene:</p>
     <div class="row">
-      <input type="text" id="codeInput1" inputmode="numeric" maxlength="5" placeholder="_ _ _ _ _">
-      <button class="btn-s" onclick="checkCode(1)">Lås opp gåte</button>
+      <input type="text" id="codeInput1" placeholder="_ _ _ _ _">
+      <button class="btn-s" onclick="checkCode(1)">Lås opp</button>
     </div>
     <div class="fb" id="fb1c"></div>
   </div>
 
   <div class="stagebox" id="riddle1">
-    <h3>Steg 2 · Gåten</h3>
+    <h3>Løs gåtene for å finne kodeordet</h3>
+    <p>Svar på gåtene. Ta <strong>første bokstav</strong> i hvert svar og sett dem sammen til et trebokstavers kodeord.</p>
     <div class="riddle-box">
-      <blockquote>«Jeg er den minste byggeklossen i alt stoff. Jeg kan ikke deles videre uten å miste navnet mitt. Alle grunnstoffene i periodesystemet er bygget av meg. Hva er jeg?»</blockquote>
+      <div class="riddle-row"><div class="r-num">1</div><div class="r-text">Negativ partikkel som kretser rundt atomkjernen</div><input type="text" id="r1_1" class="r-ans"></div>
+      <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Protoner er positive, elektroner er negative. Dette kalles...</div><input type="text" id="r1_2" class="r-ans"></div>
+      <div class="riddle-row"><div class="r-num">3</div><div class="r-text">Stoff som bare består av én type atom</div><input type="text" id="r1_3" class="r-ans"></div>
     </div>
     <div class="row">
-      <input type="text" id="riddleInput1" placeholder="Svaret på gåten">
-      <button class="btn-s" onclick="checkRiddle(1)">Sjekk gåtesvar</button>
+      <input type="text" id="riddleInput1" maxlength="3" placeholder="Skriv 3-bokstavers kodeord">
+      <button class="btn-s" onclick="checkRiddle(1)">Sjekk kodeord</button>
     </div>
     <div class="fb" id="fb1r"></div>
   </div>
 
   <div class="stagebox" id="anagram1">
     <h3>Steg 3 · Anagram</h3>
-    <p>Bokstavene i svaret ditt er stokket om. Skriv dem i riktig rekkefølge for å bekrefte og låse opp ordbrikken.</p>
-    <div class="chips"><div class="chip">M</div><div class="chip">O</div><div class="chip">T</div><div class="chip">A</div></div>
+    <p>Bokstavene under skjuler et fagord (ikke svaret på en gåte). Løs det for å få ordbrikken.</p>
+    <div class="chips"><div class="chip">N</div><div class="chip">O</div><div class="chip">R</div><div class="chip">Ø</div><div class="chip">Y</div><div class="chip">T</div></div>
     <div class="row">
-      <input type="text" id="anagramInput1" placeholder="Riktig rekkefølge">
+      <input type="text" id="anagramInput1" placeholder="Løsning på anagram">
       <button class="btn-s" onclick="checkAnagram(1)">Bekreft</button>
     </div>
     <div class="fb" id="fb1a"></div>
@@ -184,75 +182,57 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 <!-- ===== SONE 2 ===== -->
 <section class="panel card" id="room2">
   <h2>Sone 2 · Syrer og baser</h2>
-  <p class="muted">Kjemilaben. pH, løsninger og kjemiske reaksjoner. Når syre møter base, kan noe interessant skje.</p>
-  <div class="help">Samme prinsipp: riktige svar → tallkode → gåte → anagram → ordbrikke.</div>
 
   <div class="q"><div class="q-title">6. Hva kjennetegner en base?</div><div class="opts">
     <label class="opt"><input type="radio" name="q6" value="1"> pH under 7</label>
     <label class="opt"><input type="radio" name="q6" value="2"> pH over 7</label>
     <label class="opt"><input type="radio" name="q6" value="3"> Nøytral</label>
   </div></div>
-
   <div class="q"><div class="q-title">7. Hva er en løsning?</div><div class="opts">
     <label class="opt"><input type="radio" name="q7" value="1"> To stoffer som ikke blander seg</label>
     <label class="opt"><input type="radio" name="q7" value="2"> Et stoff løst i et annet</label>
     <label class="opt"><input type="radio" name="q7" value="3"> Et fast stoff</label>
   </div></div>
-
   <div class="q"><div class="q-title">8. Hvilket av disse er en kjemisk reaksjon?</div><div class="opts">
     <label class="opt"><input type="radio" name="q8" value="1"> Is smelter</label>
     <label class="opt"><input type="radio" name="q8" value="2"> Sukker løses i vann</label>
     <label class="opt"><input type="radio" name="q8" value="3"> Jern ruster</label>
   </div></div>
-
   <div class="q"><div class="q-title">9. Hva er hovedoppgaven til cellemembranen?</div><div class="opts">
     <label class="opt"><input type="radio" name="q9" value="1"> Produsere energi</label>
     <label class="opt"><input type="radio" name="q9" value="2"> Beskytte og kontrollere hva som slipper inn og ut</label>
     <label class="opt"><input type="radio" name="q9" value="3"> Lagre DNA</label>
   </div></div>
-
   <div class="q"><div class="q-title">10. Hva finnes i cellekjernen?</div><div class="opts">
     <label class="opt"><input type="radio" name="q10" value="1"> Oksygen</label>
     <label class="opt"><input type="radio" name="q10" value="2"> DNA</label>
     <label class="opt"><input type="radio" name="q10" value="3"> Proteiner</label>
   </div></div>
 
-  <div class="controls">
-    <button class="btn-p" onclick="checkQuiz(2)">Sjekk svar →</button>
-    <button class="btn-s" onclick="resetRoom(2)">Nullstill</button>
-  </div>
+  <div class="controls"><button class="btn-p" onclick="checkQuiz(2)">Sjekk svar →</button></div>
   <div class="fb" id="fb2q"></div>
 
   <div class="stagebox" id="code2">
-    <h3>Steg 2 · Tallkode</h3>
-    <p>Skriv inn tallkoden for å låse opp gåten.</p>
-    <div class="row">
-      <input type="text" id="codeInput2" inputmode="numeric" maxlength="5" placeholder="_ _ _ _ _">
-      <button class="btn-s" onclick="checkCode(2)">Lås opp gåte</button>
-    </div>
+    <h3>Steg 2 · Gåtene</h3>
+    <div class="row"><input type="text" id="codeInput2" placeholder="_ _ _ _ _"><button class="btn-s" onclick="checkCode(2)">Lås opp</button></div>
     <div class="fb" id="fb2c"></div>
   </div>
 
   <div class="stagebox" id="riddle2">
-    <h3>Steg 2 · Gåten</h3>
+    <h3>Kodeord-gåter</h3>
     <div class="riddle-box">
-      <blockquote>«Jeg er sur og kan etse. Du finner meg i magesaft, i sitronsaft og i sur nedbør. Blander du meg med en base, kan vi nøytralisere hverandre. pH-skalaen måler styrken min. Hva er jeg?»</blockquote>
+      <div class="riddle-row"><div class="r-num">1</div><div class="r-text">pH over 7, glatt, nøytraliserer syre</div><input type="text" id="r2_1" class="r-ans"></div>
+      <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Naturfargestoff som skifter farge ved pH-endring</div><input type="text" id="r2_2" class="r-ans"></div>
+      <div class="riddle-row"><div class="r-num">3</div><div class="r-text">Fellesord for stoffer som brukes til å måle pH</div><input type="text" id="r2_3" class="r-ans"></div>
     </div>
-    <div class="row">
-      <input type="text" id="riddleInput2" placeholder="Svaret på gåten">
-      <button class="btn-s" onclick="checkRiddle(2)">Sjekk gåtesvar</button>
-    </div>
+    <div class="row"><input type="text" id="riddleInput2" maxlength="3" placeholder="3-bokstavers kodeord"><button class="btn-s" onclick="checkRiddle(2)">Sjekk</button></div>
     <div class="fb" id="fb2r"></div>
   </div>
 
   <div class="stagebox" id="anagram2">
     <h3>Steg 3 · Anagram</h3>
-    <p>Bokstavene i svaret er stokket om. Skriv dem i riktig rekkefølge.</p>
-    <div class="chips"><div class="chip">R</div><div class="chip">Y</div><div class="chip">E</div><div class="chip">S</div></div>
-    <div class="row">
-      <input type="text" id="anagramInput2" placeholder="Riktig rekkefølge">
-      <button class="btn-s" onclick="checkAnagram(2)">Bekreft</button>
-    </div>
+    <div class="chips"><div class="chip">T</div><div class="chip">L</div><div class="chip">A</div><div class="chip">S</div></div>
+    <div class="row"><input type="text" id="anagramInput2" placeholder="Løsning på anagram"><button class="btn-s" onclick="checkAnagram(2)">Bekreft</button></div>
     <div class="fb" id="fb2a"></div>
   </div>
 </section>
@@ -260,75 +240,57 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 <!-- ===== SONE 3 ===== -->
 <section class="panel card" id="room3">
   <h2>Sone 3 · Cellen</h2>
-  <p class="muted">Biolaben. Alt liv er bygget av celler. Her må dere vise at dere forstår hvordan celler er bygget opp og hvordan de skaffer energi.</p>
-  <div class="help">Riktige svar → tallkode → gåte → anagram → ordbrikke.</div>
 
   <div class="q"><div class="q-title">11. Hva er mitokondrienes funksjon?</div><div class="opts">
     <label class="opt"><input type="radio" name="q11" value="1"> Lage energi til cellen</label>
     <label class="opt"><input type="radio" name="q11" value="2"> Transportere vann</label>
     <label class="opt"><input type="radio" name="q11" value="3"> Beskytte cellen</label>
   </div></div>
-
   <div class="q"><div class="q-title">12. Hva er forskjellen på plantecelle og dyrecelle?</div><div class="opts">
     <label class="opt"><input type="radio" name="q12" value="1"> Planteceller har cellevegg</label>
     <label class="opt"><input type="radio" name="q12" value="2"> Dyreceller har cellevegg</label>
     <label class="opt"><input type="radio" name="q12" value="3"> Planteceller mangler cellemembran</label>
   </div></div>
-
   <div class="q"><div class="q-title">13. Hva brukes kloroplaster til?</div><div class="opts">
     <label class="opt"><input type="radio" name="q13" value="1"> Respirasjon</label>
     <label class="opt"><input type="radio" name="q13" value="2"> Fotosyntese</label>
     <label class="opt"><input type="radio" name="q13" value="3"> Fordøyelse</label>
   </div></div>
-
   <div class="q"><div class="q-title">14. Hva trenger kroppen for å få energi i cellene?</div><div class="opts">
     <label class="opt"><input type="radio" name="q14" value="1"> Oksygen og næring</label>
     <label class="opt"><input type="radio" name="q14" value="2"> Bare vann</label>
     <label class="opt"><input type="radio" name="q14" value="3"> Bare varme</label>
   </div></div>
-
   <div class="q"><div class="q-title">15. Hva skjer i celleånding?</div><div class="opts">
     <label class="opt"><input type="radio" name="q15" value="1"> Energi frigjøres</label>
     <label class="opt"><input type="radio" name="q15" value="2"> Energi forsvinner</label>
     <label class="opt"><input type="radio" name="q15" value="3"> Energi lagres uten bruk</label>
   </div></div>
 
-  <div class="controls">
-    <button class="btn-p" onclick="checkQuiz(3)">Sjekk svar →</button>
-    <button class="btn-s" onclick="resetRoom(3)">Nullstill</button>
-  </div>
+  <div class="controls"><button class="btn-p" onclick="checkQuiz(3)">Sjekk svar →</button></div>
   <div class="fb" id="fb3q"></div>
 
   <div class="stagebox" id="code3">
-    <h3>Steg 2 · Tallkode</h3>
-    <p>Skriv inn tallkoden for å låse opp gåten.</p>
-    <div class="row">
-      <input type="text" id="codeInput3" inputmode="numeric" maxlength="5" placeholder="_ _ _ _ _">
-      <button class="btn-s" onclick="checkCode(3)">Lås opp gåte</button>
-    </div>
+    <h3>Steg 2 · Gåtene</h3>
+    <div class="row"><input type="text" id="codeInput3" placeholder="_ _ _ _ _"><button class="btn-s" onclick="checkCode(3)">Lås opp</button></div>
     <div class="fb" id="fb3c"></div>
   </div>
 
   <div class="stagebox" id="riddle3">
-    <h3>Steg 2 · Gåten</h3>
+    <h3>Kodeord-gåter</h3>
     <div class="riddle-box">
-      <blockquote>«Jeg er den minste enheten som kan kalles levende. Alle organismer er bygget av meg. Noen har bare én av meg, andre har billioner. Jeg har en membran, en kjerne og organeller. Hva er jeg?»</blockquote>
+      <div class="riddle-row"><div class="r-num">1</div><div class="r-text">En liten spesialisert del inne i cellen</div><input type="text" id="r3_1" class="r-ans"></div>
+      <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Celleånding – prosessen der cellen bruker oksygen for å lage energi</div><input type="text" id="r3_2" class="r-ans"></div>
+      <div class="riddle-row"><div class="r-num">3</div><div class="r-text">Cellens kraftverk</div><input type="text" id="r3_3" class="r-ans"></div>
     </div>
-    <div class="row">
-      <input type="text" id="riddleInput3" placeholder="Svaret på gåten">
-      <button class="btn-s" onclick="checkRiddle(3)">Sjekk gåtesvar</button>
-    </div>
+    <div class="row"><input type="text" id="riddleInput3" maxlength="3" placeholder="3-bokstavers kodeord"><button class="btn-s" onclick="checkRiddle(3)">Sjekk</button></div>
     <div class="fb" id="fb3r"></div>
   </div>
 
   <div class="stagebox" id="anagram3">
     <h3>Steg 3 · Anagram</h3>
-    <p>Bokstavene i svaret er stokket om. Skriv dem i riktig rekkefølge.</p>
-    <div class="chips"><div class="chip">L</div><div class="chip">E</div><div class="chip">C</div><div class="chip">L</div><div class="chip">E</div></div>
-    <div class="row">
-      <input type="text" id="anagramInput3" placeholder="Riktig rekkefølge">
-      <button class="btn-s" onclick="checkAnagram(3)">Bekreft</button>
-    </div>
+    <div class="chips"><div class="chip">N</div><div class="chip">E</div><div class="chip">R</div><div class="chip">K</div><div class="chip">E</div><div class="chip">J</div></div>
+    <div class="row"><input type="text" id="anagramInput3" placeholder="Løsning på anagram"><button class="btn-s" onclick="checkAnagram(3)">Bekreft</button></div>
     <div class="fb" id="fb3a"></div>
   </div>
 </section>
@@ -336,75 +298,57 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 <!-- ===== SONE 4 ===== -->
 <section class="panel card" id="room4">
   <h2>Sone 4 · Natur og hverdagskjemi</h2>
-  <p class="muted">Siste sone. Her kobler dere alt dere har lært til naturen rundt dere og hverdagen.</p>
-  <div class="help">Riktige svar → tallkode → gåte → anagram → siste ordbrikke.</div>
 
   <div class="q"><div class="q-title">16. Hva er et eksempel på kjemi i hverdagen?</div><div class="opts">
     <label class="opt"><input type="radio" name="q16" value="1"> Kroppen bryter ned mat</label>
     <label class="opt"><input type="radio" name="q16" value="2"> Sola lyser</label>
     <label class="opt"><input type="radio" name="q16" value="3"> Vinden blåser</label>
   </div></div>
-
   <div class="q"><div class="q-title">17. Hva skjer når du blander syre og base?</div><div class="opts">
     <label class="opt"><input type="radio" name="q17" value="1"> Det blir mer surt</label>
     <label class="opt"><input type="radio" name="q17" value="2"> Det blir mer basisk</label>
     <label class="opt"><input type="radio" name="q17" value="3"> Det kan bli nøytralt</label>
   </div></div>
-
   <div class="q"><div class="q-title">18. Hva er en indikator?</div><div class="opts">
     <label class="opt"><input type="radio" name="q18" value="1"> Et stoff som viser pH</label>
     <label class="opt"><input type="radio" name="q18" value="2"> En gass</label>
     <label class="opt"><input type="radio" name="q18" value="3"> Et grunnstoff</label>
   </div></div>
-
   <div class="q"><div class="q-title">19. Hvor foregår fotosyntese?</div><div class="opts">
     <label class="opt"><input type="radio" name="q19" value="1"> I røttene</label>
     <label class="opt"><input type="radio" name="q19" value="2"> I kloroplaster</label>
     <label class="opt"><input type="radio" name="q19" value="3"> I cellekjernen</label>
   </div></div>
-
   <div class="q"><div class="q-title">20. Hva er et molekyl?</div><div class="opts">
     <label class="opt"><input type="radio" name="q20" value="1"> Flere atomer bundet sammen</label>
     <label class="opt"><input type="radio" name="q20" value="2"> Ett proton</label>
     <label class="opt"><input type="radio" name="q20" value="3"> En celle</label>
   </div></div>
 
-  <div class="controls">
-    <button class="btn-p" onclick="checkQuiz(4)">Sjekk svar →</button>
-    <button class="btn-s" onclick="resetRoom(4)">Nullstill</button>
-  </div>
+  <div class="controls"><button class="btn-p" onclick="checkQuiz(4)">Sjekk svar →</button></div>
   <div class="fb" id="fb4q"></div>
 
   <div class="stagebox" id="code4">
-    <h3>Steg 2 · Tallkode</h3>
-    <p>Skriv inn tallkoden for å låse opp gåten.</p>
-    <div class="row">
-      <input type="text" id="codeInput4" inputmode="numeric" maxlength="5" placeholder="_ _ _ _ _">
-      <button class="btn-s" onclick="checkCode(4)">Lås opp gåte</button>
-    </div>
+    <h3>Steg 2 · Gåtene</h3>
+    <div class="row"><input type="text" id="codeInput4" placeholder="_ _ _ _ _"><button class="btn-s" onclick="checkCode(4)">Lås opp</button></div>
     <div class="fb" id="fb4c"></div>
   </div>
 
   <div class="stagebox" id="riddle4">
-    <h3>Steg 2 · Gåten</h3>
+    <h3>Kodeord-gåter</h3>
     <div class="riddle-box">
-      <blockquote>«Jeg er alt rundt dere – fjell og vann, luft og levende ting. Planter, dyr, atomer og syrer er alle en del av meg. Dere studerer meg i et fag som bærer et navn svært likt mitt. Hva er jeg?»</blockquote>
+      <div class="riddle-row"><div class="r-num">1</div><div class="r-text">Blandingen av gasser vi puster inn</div><input type="text" id="r4_1" class="r-ans"></div>
+      <div class="riddle-row"><div class="r-num">2</div><div class="r-text">Gassen planter produserer i fotosyntesen</div><input type="text" id="r4_2" class="r-ans"></div>
+      <div class="riddle-row"><div class="r-num">3</div><div class="r-text">Energikilden til fotosyntesen</div><input type="text" id="r4_3" class="r-ans"></div>
     </div>
-    <div class="row">
-      <input type="text" id="riddleInput4" placeholder="Svaret på gåten">
-      <button class="btn-s" onclick="checkRiddle(4)">Sjekk gåtesvar</button>
-    </div>
+    <div class="row"><input type="text" id="riddleInput4" maxlength="3" placeholder="3-bokstavers kodeord"><button class="btn-s" onclick="checkRiddle(4)">Sjekk</button></div>
     <div class="fb" id="fb4r"></div>
   </div>
 
   <div class="stagebox" id="anagram4">
     <h3>Steg 3 · Anagram</h3>
-    <p>Bokstavene i svaret er stokket om. Skriv dem i riktig rekkefølge.</p>
-    <div class="chips"><div class="chip">U</div><div class="chip">T</div><div class="chip">A</div><div class="chip">R</div><div class="chip">N</div></div>
-    <div class="row">
-      <input type="text" id="anagramInput4" placeholder="Riktig rekkefølge">
-      <button class="btn-s" onclick="checkAnagram(4)">Bekreft</button>
-    </div>
+    <div class="chips"><div class="chip">Y</div><div class="chip">K</div><div class="chip">L</div><div class="chip">L</div><div class="chip">O</div><div class="chip">M</div><div class="chip">E</div></div>
+    <div class="row"><input type="text" id="anagramInput4" placeholder="Løsning på anagram"><button class="btn-s" onclick="checkAnagram(4)">Bekreft</button></div>
     <div class="fb" id="fb4a"></div>
   </div>
 </section>
@@ -412,17 +356,14 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 <!-- ===== SLUTTHVELVET ===== -->
 <section class="card vault" id="vault">
   <h2>Slutthvelvet</h2>
-  <p>Alle fire soner er ryddet. Dere har samlet fire ordbrikker:</p>
+  <p>Dere har samlet fire ordbrikker:</p>
   <div class="frags">
-    <div class="frag" id="frag1">ATOM</div>
-    <div class="frag" id="frag2">SYRE</div>
-    <div class="frag" id="frag3">CELLE</div>
-    <div class="frag" id="frag4">NATUR</div>
+    <div class="frag">NØYTRON</div><div class="frag">SALT</div>
+    <div class="frag">KJERNE</div><div class="frag">MOLEKYL</div>
   </div>
-  <p>Disse fire ordene er ikke løsningsordet – de er <strong>ledetråder</strong>. Les gåten og finn hva de alle har til felles:</p>
-  <div style="padding:14px 16px;border-radius:14px;background:#f0f8f4;border:1px solid #bcd9c8;margin:12px 0">
-    <blockquote style="margin:0;padding:12px 14px;background:#fff;border-radius:12px;border-left:4px solid var(--green);font-style:italic;font-size:16px">
-      «Atomer bygger opp alt stoff. Syrer og baser er kjemiske stoffer. Celler er livets byggeklosser. Natur er verden rundt oss. Dere har utforsket alt dette i ett og samme fag dette skoleåret. Hva heter faget?»
+  <div class="riddle-box" style="margin-top:14px">
+    <blockquote style="margin:0;border:0;padding:4px">
+      «Atomer har en KJERNE med NØYTRONER. Syrer og baser danner SALT. Stoffer er bygd av MOLEKYLER. Hva heter faget der dere har lært alt dette?»
     </blockquote>
   </div>
   <div class="row">
@@ -434,18 +375,17 @@ input[type=text]{flex:1 1 200px;min-height:48px;padding:11px 14px;border-radius:
 
 <section class="card final-sec" id="doneBox">
   <h2>🎉 Oppdrag fullført!</h2>
-  <p>Dere klarte det! Aurora 7 er åpnet. Dere har vist at dere behersker atomer, syrer, celler og natur.</p>
+  <p>Dere klarte det! Dere har vist at dere behersker faget!</p>
   <div class="winner">NATURFAG</div>
-  <p class="small">Fire soner · tre steg per sone · én felles konklusjon</p>
 </section>
 
 </div>
 <script>
 const cfg={
-  1:{qs:["q1","q2","q3","q4","q5"],code:"23122",riddle:"atom",anagram:"atom"},
-  2:{qs:["q6","q7","q8","q9","q10"],code:"22322",riddle:"syre",anagram:"syre"},
-  3:{qs:["q11","q12","q13","q14","q15"],code:"11211",riddle:"celle",anagram:"celle"},
-  4:{qs:["q16","q17","q18","q19","q20"],code:"13121",riddle:"natur",anagram:"natur"}
+  1:{qs:["q1","q2","q3","q4","q5"],code:"23122",codeW:"elg",ans:"nøytron"},
+  2:{qs:["q6","q7","q8","q9","q10"],code:"22322",codeW:"bli",ans:"salt"},
+  3:{qs:["q11","q12","q13","q14","q15"],code:"11211",codeW:"orm",ans:"kjerne"},
+  4:{qs:["q16","q17","q18","q19","q20"],code:"13121",codeW:"los",ans:"molekyl"}
 };
 
 function sel(n){const e=document.querySelector('input[name="'+n+'"]:checked');return e?e.value:"";}
@@ -457,39 +397,30 @@ function goTo(id){const el=document.getElementById(id);if(el)window.scrollTo({to
 function checkQuiz(r){
   const c=cfg[r],answers=c.qs.map(sel);
   if(answers.some(a=>!a)){setFb("fb"+r+"q","Svar på alle fem spørsmål først.",false);return;}
-  const code=answers.join("");
-  if(code===c.code){
-    setFb("fb"+r+"q","Riktig! Tallkoden er "+code+". Skriv den inn i feltet under.",true);
+  if(answers.join("")===c.code){
+    setFb("fb"+r+"q","Riktig! Lås opp neste steg.",true);
     show("code"+r);goTo("code"+r);
-  }else{
-    setFb("fb"+r+"q","Tallkoden stemmer ikke – sjekk svarene og prøv igjen.",false);
-  }
+  }else{setFb("fb"+r+"q","Feil i svar.",false);}
 }
 
 function checkCode(r){
-  const val=(document.getElementById("codeInput"+r).value||"").trim();
-  if(val===cfg[r].code){
-    setFb("fb"+r+"c","Koden er riktig – gåten åpner seg!",true);
+  if((document.getElementById("codeInput"+r).value||"").trim()===cfg[r].code){
+    setFb("fb"+r+"c","Kode godkjent. Gåter låst opp.",true);
     show("riddle"+r);goTo("riddle"+r);
-  }else{
-    setFb("fb"+r+"c","Feil kode. Gå tilbake og sjekk svarene.",false);
-  }
+  }else{setFb("fb"+r+"c","Feil kode.",false);}
 }
 
 function checkRiddle(r){
   const val=norm(document.getElementById("riddleInput"+r).value);
-  if(val===norm(cfg[r].riddle)){
-    setFb("fb"+r+"r","Riktig! Nå er bokstavene stokket om i steg 3 – finn riktig rekkefølge.",true);
+  if(val===norm(cfg[r].codeW)){
+    setFb("fb"+r+"r","Kodeord riktig! Anagram låst opp.",true);
     show("anagram"+r);goTo("anagram"+r);
-  }else{
-    setFb("fb"+r+"r","Ikke riktig. Les gåten nøye og tenk på temaet i denne sonen.",false);
-  }
+  }else{setFb("fb"+r+"r","Feil kodeord. Har dere tatt første bokstav fra riktige svar?",false);}
 }
 
 function checkAnagram(r){
-  const val=norm(document.getElementById("anagramInput"+r).value);
-  if(val===norm(cfg[r].anagram)){
-    setFb("fb"+r+"a","Riktig! Ordbrikken er låst opp.",true);
+  if(norm(document.getElementById("anagramInput"+r).value)===norm(cfg[r].ans)){
+    setFb("fb"+r+"a","Riktig!",true);
     document.getElementById("step"+r).classList.add("done");
     setTimeout(()=>{
       if(r<4){
@@ -502,19 +433,14 @@ function checkAnagram(r){
         show("vault");goTo("vault");
       }
     },1200);
-  }else{
-    setFb("fb"+r+"a","Ikke riktig rekkefølge – prøv igjen.",false);
-  }
+  }else{setFb("fb"+r+"a","Ikke riktig anagram.",false);}
 }
 
 function checkFinal(){
-  const val=norm(document.getElementById("finalInput").value);
-  if(val==="naturfag"){
-    setFb("fbFinal","Riktig! Siste dør åpner seg.",true);
+  if(norm(document.getElementById("finalInput").value)==="naturfag"){
+    setFb("fbFinal","Riktig!",true);
     setTimeout(()=>{show("doneBox");goTo("doneBox");},900);
-  }else{
-    setFb("fbFinal","Ikke riktig. Tenk på hva alle fire ordbrikkene har til felles.",false);
-  }
+  }else{setFb("fbFinal","Ikke riktig.",false);}
 }
 
 function resetRoom(r){
